@@ -37,7 +37,7 @@ def linear_combination(g1,g2):
             g_2 = n*g2
             linear_combination_g = (g_1 + g_2)%4
             if is_equal(g_0,linear_combination_g) == True:
-                party_pattern.append([i,j])
+                party_pattern.append([i+1,j+1])
 
 
 def trio_linear_combination(g3,g4,g5):
@@ -59,6 +59,8 @@ matrix = np.array([
 [1,1,1,0],
 [1,2,0,1]
 ])
+
+
 
 party_pattern = []
 trace_matrix = matrix.T
