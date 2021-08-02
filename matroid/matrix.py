@@ -1,6 +1,7 @@
 import numpy as np
 import time
-
+import itertools
+import logging
 
 
 def make_matrix(ele:int): #(ele:int,rows:int,lines:int)
@@ -39,8 +40,12 @@ def main():
     print("Z_m上のk×ｎ行列のmとkとnに代入したい値を半角区切りで打ち込んでください")
     m,k,n = [int(i) for i in input().split()]
     print(f"Z_{m}上の{k} × {n}行列を表示します",)
+    for perms in itertools.permutations(range(m),n):
+        mat = []
+        for rows in itertools.combinations(perms,k):
+            mat.append(rows)
+        print(mat)
     """
-    make_matrix(4)
 if __name__ == "__main__":
     main()
 
