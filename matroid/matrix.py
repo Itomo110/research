@@ -1,5 +1,4 @@
 import numpy as np
-import time
 import itertools
 import logging
 
@@ -12,7 +11,6 @@ def make_matrix(ele:int): #(ele:int,rows:int,lines:int)
     matrix_ele_list = []
     for i in range(2*4): # range(rows*lines)
         matrix_ele_list.append(0)
-    t1 = time.time()
     for a in range(ele):
         matrix_ele_list[0] = a
         for b in range(ele):
@@ -31,11 +29,18 @@ def make_matrix(ele:int): #(ele:int,rows:int,lines:int)
                                     matrix_ele_list[7] = h
                                     matrix = np.array(np.array_split(matrix_ele_list,2))
                                     print(matrix)
-    t2 = time.time()
-    times = t2 - t1
-    print(times)
 
 def main():
+    list1 = [1,2,3,4,"愛",6,7,8,9,10]
+    for i in list1:
+        try:
+            practice = int(i)
+            print(practice)
+        except ValueError:
+            continue
+            print(f"{i}は数字ではありません")
+            
+
     """
     print("Z_m上のk×ｎ行列のmとkとnに代入したい値を半角区切りで打ち込んでください")
     m,k,n = [int(i) for i in input().split()]
