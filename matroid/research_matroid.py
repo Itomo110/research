@@ -33,10 +33,12 @@ def check_matroid(ele:int): #(ele:int,rows:int,lines:int)
                                     matrix = np.array(np.array_split(matrix_ele_list,2))
                                     D = mj.combination_list(ele,matrix)
                                     E = {1,2,3}
-                                    if DependentMatroid((E,D)) == DependentMatroid.MatroidAxiomError:
+                                    try:
+                                        result = DependentMatroid((E,D))
+                                        print(result)
+                                    except DependentMatroid.MatroidAxiomError:
                                         print(matrix)
-                                        print(D)
-                                                                            
+                                        continue                           
                                         
 
 #######################################################################################################################################
