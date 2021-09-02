@@ -1,6 +1,7 @@
 import matroid_judge as mj
 from matroids.Matroid import Matroid
 from matroids.DependentMatroid import DependentMatroid
+import matroids
 import numpy as np
 import itertools
 
@@ -33,13 +34,11 @@ def check_matroid(ele:int): #(ele:int,rows:int,lines:int)
                                     matrix = np.array(np.array_split(matrix_ele_list,2))
                                     D = mj.combination_list(ele,matrix)
                                     E = {1,2,3}
+                                    #result = DependentMatroid((E,D))
                                     try:
                                         result = DependentMatroid((E,D))
-                                        print(result)
-                                    except DependentMatroid.MatroidAxiomError:
+                                    except matroids.core.exception.MatroidAxiomError:
                                         print(matrix)
                                         continue                           
-                                        
-
 #######################################################################################################################################
 check_matroid(4)

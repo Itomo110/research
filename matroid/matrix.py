@@ -37,8 +37,9 @@ def main():
             practice = int(i)
             print(practice)
         except ValueError:
-            continue
             print(f"{i}は数字ではありません")
+            continue
+            
             
 
     """

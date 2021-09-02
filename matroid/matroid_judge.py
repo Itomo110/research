@@ -23,6 +23,7 @@ def single(ele,matrix):
     for i in range(1,repeat):
         g1 = t_matrix[i]
         for j in range(ele):
+            g1 = (j*t_matrix[i]) % ele
             if (g0 == g1).all():
                 decoding_single_list.append({i}) 
                 break
@@ -42,9 +43,9 @@ def linear_combination(ele:int,matrix):
         for j in range(1,repeat_time):
             g2 = trace_matrix[j]
             for k in range(ele):
-                g_1 = k*g1
+                g_1 = (k*g1) % ele
                 for l in range(ele):
-                    g_2 = l*g2
+                    g_2 = (l*g2) % ele
                     result = (g_1 + g_2) % 4
                     if (g_0 == result).all():
                         decoding_pair_list.append({i,j})
@@ -52,21 +53,28 @@ def linear_combination(ele:int,matrix):
 
 def trio_combination(ele,matrix):
     trace_matrix = matrix.T
-    g0 = trace_matrix[0]   
+    g0 = trace_matrix[0]
+    decoding_trio_list = []
     for i in range(ele):
-        g_1 = i*trace_matrix[1]
+        g_1 = (i*trace_matrix[1]) % ele
         for j in range(ele):
-            g_2 = j*trace_matrix[2]
+            g_2 = (j*trace_matrix[2]) % ele
             for k in range(ele):
-                g_3 = k*trace_matrix[3]
-                result = g_1 + g_2 + g_3
+                g_3 = (k*trace_matrix[3]) % ele
+                result = (g_1 + g_2 + g_3) % ele
                 if (g0 == result).all():
-                    return[{1,2,3}]
+                    decoding_trio_list.append({1,2,3})
+                else:
+                    continue
+    return decoding_trio_list
 
 def combination_list(ele,matrix):
     sin = single(ele,matrix)
+    #print("sin=",sin)
     pair = linear_combination(ele,matrix)
+    #print("pair=",pair)
     trio = trio_combination(ele,matrix)
+    #print("trio=",trio)
     result = sin + pair + trio
     result_list = []
     for i in range(len(result)):
@@ -114,12 +122,14 @@ ma = np.array([
     [1,2,1,1]
 ])
 trace_mat = mat.T 
-list1 =  [[1, 3], [2, 3], [1, 2, 3]] 
+list1 =  [[1, 3], [2, 3], [1, 2, 3]]
+D = print(combination_list(4,mat))
+"""
 E = {1,2,3}
 D = combination_list(4,mat)
 matroid = DependentMatroid((E,D))
 print(matroid)
-"""
+
 print(combination_list(4,mat))
 E = {1,2,3}
 D = [{1,3},{2,3},{1,2,3}]
