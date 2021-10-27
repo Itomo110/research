@@ -46,7 +46,7 @@ def linear_combination(ele:int,matrix):
                 g_1 = (k*g1) % ele
                 for l in range(ele):
                     g_2 = (l*g2) % ele
-                    result = (g_1 + g_2) % 4
+                    result = (g_1 + g_2) % ele
                     if (g_0 == result).all():
                         decoding_pair_list.append({i,j})
     return decoding_pair_list
@@ -55,18 +55,77 @@ def trio_combination(ele,matrix):
     trace_matrix = matrix.T
     g0 = trace_matrix[0]
     decoding_trio_list = []
+    repeat_time = len(trace_matrix)
+    for i in range(1,repeat_time):
+        g_1 = trace_matrix[i]
+        for j in range(1,repeat_time):
+            g_2 = trace_matrix[j]
+            for k in range(1,repeat_time):
+                g_3 = trace_matrix[k]
+                for m in range(ele):
+                        g1 = (m*g_1) % ele
+                        for n in range(ele):
+                            g2 = (n*g_2) % ele
+                            for o in range(ele):
+                                g3 = (o*g_3) % ele
+                                result = (g1 + g2 +g3) % ele
+                                if (g0 == result).all():
+                                    if len({i,j,k}) == 3:
+                                        decoding_trio_list.append({i,j,k})
+                                    else:
+                                        continue
+    return decoding_trio_list
+
+def quartet_combination(ele,matrix):
+    trace_matrix = matrix.T
+    g0 = trace_matrix[0]
+    decoding_quartet_list = []
+    repeat_time = len(trace_matrix)
+    for i in range(1,repeat_time):
+        g_1 = trace_matrix[i]
+        for j in range(1,repeat_time):
+            g_2 = trace_matrix[j]
+            for k in range(1,repeat_time):
+                g_3 = trace_matrix[k]
+                for l in range(1,repeat_time):
+                    g_4 = trace_matrix[l] 
+                    for m in range(ele):
+                        g1 = (m*g_1) % ele
+                        for n in range(ele):
+                            g2 = (n*g_2) % ele
+                            for o in range(ele):
+                                g3 = (o*g_3) % ele
+                                for p in range(ele):
+                                    g4 = (p*g_4) % ele
+                                    result = (g_1 + g_2 + g_3 + g_4) % ele
+                                    if (g0 == result).all():
+                                        decoding_quartet_list.append([i,j,k,l])
+                                    else: 
+                                        continue
+    return decoding_quartet_list
+
+
+def quintet_combination(ele,matrix):
+    trace_matrix = matrix.T
+    g0 = trace_matrix[0]
+    decoding_quintet_list = []
     for i in range(ele):
         g_1 = (i*trace_matrix[1]) % ele
         for j in range(ele):
             g_2 = (j*trace_matrix[2]) % ele
             for k in range(ele):
                 g_3 = (k*trace_matrix[3]) % ele
-                result = (g_1 + g_2 + g_3) % ele
-                if (g0 == result).all():
-                    decoding_trio_list.append({1,2,3})
-                else:
-                    continue
-    return decoding_trio_list
+                for l in range(ele):
+                    g_4 = (l*trace_matrix[4]) % ele
+                    for m in range(ele):
+                        g_5 = (m*trace_matrix[5]) % ele
+                        result = (g_1 + g_2 + g_3 + g_4 + g_5) % ele
+                    if (g0 == result).all():
+                        decoding_quintet_list.append({1,2,3,4,5})
+                        return decoding_quintet_list
+                    else:
+                        continue
+    
 
 def combination_list(ele,matrix):
     sin = single(ele,matrix)
@@ -114,56 +173,13 @@ def matroido_judg1(decoding_list:list):
 #________________________________________________________________________________________________________________________
 #以下挙動確認用
 mat = np.array([
-    [1,1,1,0],
-    [1,0,0,1]
+    [1,1,1,0,0,0],
+    [1,0,0,1,1,0],
+    [0,1,1,1,0,1]
 ])
 ma = np.array([
     [1,1,1,0],
     [1,2,1,1]
 ])
-print(linear_combination(2,mat))
 
-trace_mat = mat.T 
-list1 =  [[1, 3], [2, 3], [1, 2, 3]]
-D = print(combination_list(4,mat))
-"""
-E = {1,2,3}
-D = combination_list(4,mat)
-matroid = DependentMatroid((E,D))
-print(matroid)
-
-print(combination_list(4,mat))
-E = {1,2,3}
-D = [{1,3},{2,3},{1,2,3}]
-matroid = DependentMatroid((E,D))
-print(Matroid)
-#matroido_judg1(list1)
-
-E = {1,2,3}
-I = [set(),{1},{2},{3},{1,2},{2,3}]
-matroid = IndependentMatroid((E,I))
-print(Matroid)
-print(linear_combination(4,mat))
-print(single(4,mat))
-print(trio_combination(4,mat))
-result = single(4,mat)+linear_combination(4,mat)+trio_combination(4,mat)
-print(result)
-result_list = []
-for i in range(len(result)):
-    if set(result[i]) in result_list:
-        continue
-    else:
-        result_list.append(set(result[i]))
-print(result_list)
-
-list1 =  [[1, 3], [2, 3], [1, 2, 3]]      
-n_list1 = [str(i) for i in list1]
-list2 = [[0],[1],[2],[3],[1,2],[1, 3], [2, 3],[1, 2, 3]] 
-#list2 = [[1, 3], [2, 3], [3, 1], [3, 2]]
-n_list2 = [str(i) for i in list2]
-n_list3 = list(set(n_list2) -set(n_list1))
-list3 = []
-for i in range(len(n_list3)):
-    list3.append(n_list3[i])
-print(list3)
-"""
+print(quartet_combination(2,mat))

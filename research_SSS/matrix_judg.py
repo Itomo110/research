@@ -3,19 +3,13 @@ import itertools as it
 
 
 
-"""
 def change_matrix(row1:list,row2:list):
     matrix = np.array([row1,row2])
     trace_matrix = matrix.T
     g_0 = trace_matrix[0]
+    ele_matrix = trace_matrix[1:]
     return g_0
     
-
-def share(t_matrix):
-    ele_matrix = t_matrix[1:]
-    return ele_matrix
-"""
-
 
 def full_party_pattern(n:int):
     index = list(range(1,n))
@@ -66,13 +60,10 @@ party_pattern = []
 trace_matrix = matrix.T
 g_0 = trace_matrix[0]
 ele_matrix = trace_matrix[1:]
-"""change_matrix([1,1,1,0],[1,2,0,1])
-share(trace_matrix)
-party_pattern = []"""
 
-#print(ele_matrix[0]+ ele_matrix[1])
-#print(ele_matrix[1])
-#linear_combination(ele_matrix[0],ele_matrix[1])
+#print(change_matrix([1,1,1,0],[1,2,0,1]))
+party_pattern = []
+
 
 
 for h in range(3):                      #一人用判定
@@ -93,4 +84,5 @@ for i in range(2):                       #二人組判定
 
 trio_linear_combination(ele_matrix[0],ele_matrix[1],ele_matrix[2])  #三人組判定
 print(party_pattern)
+print(matrix)
 
