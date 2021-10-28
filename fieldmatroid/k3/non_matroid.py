@@ -10,8 +10,8 @@ def matroid_chaeck(k,n,q):
     input:k:列数,n:行数,q:位数(素数)
     """
     with open("result1.txt","w") as z:
-        row0 = np.array([0,0,0,0])
-        col0 = np.array([0,0])
+        row0 = np.array([0,0,0,0,0,0])
+        col0 = np.array([0,0,0])
         ele = list(range(q))
         vec = list(itertools.product(ele, repeat = k*n))
         for i in range(len(vec)):
@@ -41,7 +41,7 @@ def matroid_chaeck(k,n,q):
                 
 
 #######################################################################################3
-matroid_chaeck(2,4,2)
+matroid_chaeck(3,6,2)
 
 
     
